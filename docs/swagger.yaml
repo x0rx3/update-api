@@ -1,0 +1,281 @@
+definitions:
+  models.Response:
+    properties:
+      Data: {}
+      message:
+        type: string
+    type: object
+  models.Result:
+    properties:
+      errors:
+        type: string
+      malware:
+        type: string
+      rules:
+        type: string
+      server_uuid:
+        type: string
+      time_end:
+        type: string
+      time_start:
+        type: string
+      uuid:
+        type: string
+    type: object
+  models.Server:
+    properties:
+      login:
+        type: string
+      malware_status:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+      rules_status:
+        type: string
+      soft_version:
+        type: string
+      url:
+        type: string
+      uuid:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /result/{uuid}:
+    get:
+      consumes:
+      - application/json
+      description: get result by ID
+      parameters:
+      - description: Result UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                ' Data':
+                  $ref: '#/definitions/models.Result'
+                Message:
+                  type: string
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Show Result
+      tags:
+      - Result
+  /results:
+    get:
+      consumes:
+      - application/json
+      description: get results
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                ' Data':
+                  items:
+                    $ref: '#/definitions/models.Result'
+                  type: array
+                Message:
+                  type: string
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Show results
+      tags:
+      - Result
+  /server:
+    post:
+      consumes:
+      - application/json
+      description: post server
+      parameters:
+      - description: Input server
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Server'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                ' Data':
+                  type: string
+                Message:
+                  type: string
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Create server
+      tags:
+      - Server
+  /server/{uuid}:
+    delete:
+      consumes:
+      - application/json
+      description: delete server by ID
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                Message:
+                  type: string
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Delete server
+      tags:
+      - Server
+    get:
+      consumes:
+      - application/json
+      description: get server by ID
+      parameters:
+      - description: Server UUID
+        in: path
+        name: uuid
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                ' Data':
+                  $ref: '#/definitions/models.Server'
+                Message:
+                  type: string
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Show server
+      tags:
+      - Server
+    patch:
+      consumes:
+      - application/json
+      description: patch server
+      parameters:
+      - description: Input server
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.Server'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                Message:
+                  type: string
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Update server
+      tags:
+      - Server
+  /servers:
+    get:
+      consumes:
+      - application/json
+      description: get servers
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: desc
+          schema:
+            allOf:
+            - $ref: '#/definitions/models.Response'
+            - properties:
+                ' Data':
+                  items:
+                    $ref: '#/definitions/models.Server'
+                  type: array
+                Message:
+                  type: string
+              type: object
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/models.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.Response'
+      summary: Show servers
+      tags:
+      - Server
+swagger: "2.0"

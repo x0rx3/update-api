@@ -1,0 +1,4 @@
+address: "127.0.0.1"
+port: "9090"
+dsn: update_user:update_password@tcp(localhost:3306)/update_db?charset=utf8mb4&parseTime=True&loc=Local
+log_level: debug
